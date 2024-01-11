@@ -1,0 +1,15 @@
+{
+	"close_windows_when_empty": true,
+	"font_size": 13,
+	"scroll_past_end": false,
+	"draw_indent_guides": true,
+	"caret_style": "wide",
+	"highlight_li ne": true,
+	"line_padding_bottom": 1,
+  	"line_padding_top": 1,
+  	"fade_fold_buttons": false,
+  	"rulers": [4,8,12,16,20,24,28,32,79],
+  	"detect_indentation": true,
+	"tab_size": 4,
+	"translate_tabs_to_spaces": true
+}
