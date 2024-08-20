@@ -111,7 +111,3 @@ for bucket_name, report_file_name in buckets.items():
             f.write(f"{file_name}|{timestamp}|{','.join(file_contents)}\n")
 
     print(f"Zip report for {bucket_name} generated and saved to {zip_report_file_name}")
-            # Write the report entry
-            f.write(f"{file_name}|{timestamp}|{','.join(file_contents)}\n")
-
-    print(f"Zip report for {bucket_name} generated and saved to {zip_report_file_name}")
