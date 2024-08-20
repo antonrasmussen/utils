@@ -6,10 +6,10 @@ import zipfile
 weeks_ago = datetime.datetime.now() - datetime.timedelta(weeks=500)
 
 # Specify bucket names and corresponding report file names
-partner = 'buckeye'
+partner = '{partner_name}'
 buckets = {
-    'cbh-sftp-drop-production': f'new_env_{partner}_report.txt',
-    'cbh_sftp_drop': f'legacy_{partner}_report.txt',
+    '{new_env_bucket}': f'new_env_{partner}_report.txt',
+    '{legacy_env_bucket}': f'legacy_{partner}_report.txt',
 }
 
 sub_bucket = f'{partner}/drop'
