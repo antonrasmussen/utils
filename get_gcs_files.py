@@ -14,12 +14,11 @@ buckets = {
 
 sub_bucket = f'{partner}/drop'
 
-# Create a directory to store downloaded zip files
-download_dir = "downloaded_zips"
-os.makedirs(download_dir, exist_ok=True) 
-
 # Process each bucket and generate its reports
 for bucket_name, report_file_name in buckets.items():
+    # Create a partner- and bucket-specific download directory 
+    download_dir = f"downloaded_zips/{partner}/{bucket_name}"
+    os.makedirs(download_dir, exist_ok=True)
     # Execute gsutil command for all files in the current bucket and store output
     all_files_output_file_name = f"{bucket_name}_all_files_gsutil_output.txt"
     gsutil_all_files_command = f'gsutil ls -l -r gs://{bucket_name}/{sub_bucket}/**'
@@ -99,7 +98,7 @@ for bucket_name, report_file_name in buckets.items():
     # Download zip files, extract contents and generate zip report
     with open(zip_report_file_name, 'w') as f:
         for file_name, partner, timestamp in zip_files_data:
-            # Download the zip file
+            # Download the zip file to the specific directory
             local_zip_path = os.path.join(download_dir, os.path.basename(file_name))
             gsutil_download_command = f'gsutil cp {file_name} {local_zip_path}'
             subprocess.run(gsutil_download_command, shell=True)
@@ -108,6 +107,10 @@ for bucket_name, report_file_name in buckets.items():
             with zipfile.ZipFile(local_zip_path, 'r') as zip_ref:
                 file_contents = zip_ref.namelist()
 
+            # Write the report entry
+            f.write(f"{file_name}|{timestamp}|{','.join(file_contents)}\n")
+
+    print(f"Zip report for {bucket_name} generated and saved to {zip_report_file_name}")
             # Write the report entry
             f.write(f"{file_name}|{timestamp}|{','.join(file_contents)}\n")
 
